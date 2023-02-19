@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>datamining.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="data-mining-and-big-data-analytics-assignment">DATA MINING AND BIG DATA ANALYTICS ASSIGNMENT</h1>
+<p><strong>Name</strong>:  Poornashree S</p>
+<p><strong>Class</strong>: I-MCA-B</p>
+<p><strong>Register no</strong>: 2238m0207</p>
+<p><strong>Roll no</strong>: 22mcab26</p>
+<p><strong>Topic</strong>: Neutral Network</p>
+<p><strong>Date</strong>: 20/02/2023</p>
+<h2 id="synopsis">SYNOPSIS:</h2>
+<ul>
+<li><a href="#data-mining-and-big-data-analytics-assignment">DATA MINING AND BIG DATA ANALYTICS ASSIGNMENT</a>
+<ul>
+<li><a href="#synopsis">SYNOPSIS:</a>
+<ul>
+<li><a href="#introduction">Introduction:</a></li>
+<li><a href="#what-is-neutral-network">What is Neutral Network?</a></li>
+<li><a href="#how-neutral-network-works">How Neutral Network works?</a></li>
+<li><a href="#apllication-of-neutral-network">Apllication of Neutral Network</a></li>
+<li><a href="#types-of-neutral-network">Types of Neutral Network</a></li>
+<li><a href="#recurrent-neural-network-rnn">Recurrent Neural Network (RNN):</a></li>
+<li><a href="#convolutional-neural-network">Convolutional Neural Network:</a></li>
+<li><a href="#radial-basis-function-neural-network">Radial Basis Function Neural Network:</a></li>
+<li><a href="#feed-forward-neural-network">Feed Forward Neural Network:</a></li>
+<li><a href="#modular-neural-network">Modular Neural Network:</a></li>
+<li><a href="#conclution">Conclution:</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="introduction">Introduction:</h3>
+<pre><code>    The neural network in data mining is a classification method that takes the input, trains itself to recognize the pattern of input data and predicts the output for new input of a similar kind. 
+    Neural network forms the basis of deep learning, a subfield of machine learning that comes under artificial intelligence. Designing neural network algorithms is inspired by the structure of the human brain.
+</code></pre>
+<h3 id="what-is-neutral-network">What is Neutral Network?</h3>
+<pre><code>       A neural network is a set of connected input/output units. A weight is associated with each connection, which is adjusted by the network during the learning process. So that, the network is able to predict the correct class label of input tuples.
+
+       The artificial neural network is designed after the structure of the human brain. The structure has an input/output unit that depicts the neuron of the human brain we refer to it as a node and we refer to the connection between the nodes as a link. The figure below represents the artificial neuron network.
+</code></pre>
+<h3 id="how-neutral-network-works">How Neutral Network works?</h3>
+<pre><code>   Knowing the overall structure of the neural network lets us understand the working of the neural network with the help of a simple example.
+
+  Do you know how we are able to classify a flower and leaf? Consider that we see a picture of a flower which is composed of 20 x 20 pixels i.e. equal to 400 hundred pixels
+  The input nodes of the network receive a set of input values. The number of input nodes is equivalent to the number of input variables.
+
+  Now each of these pixels is fed as an input to the first layer of the neural network i.e. in our example X1 to X400.
+
+  The first layer of the network is connected to the next layer with a link and each link is associated with a weight.
+
+  Now, to evaluate the value for each neuron in the next layer we implement a summation function.
+
+ Say to evaluate the value for the first neuron in the second layer of our example we would implement a summation function:
+
+  = [X1*W11 + X3*W31]
+</code></pre>
+<p>Neural Network step 1</p>
+<pre><code> This summation result is sent to the first neuron of the next layer. Now each neuron in the hidden layer has a numerical value associated with it which we refer to as ‘bias’.
+
+So here, the summation result is added to the bias B1.
+
+  = [X1*W11 + X3*W31] + B1
+
+    This result is further passed to a threshold activation function which decides whether this particular neuron will be activated or not.
+
+ Output = Activation Function ([X1*W11 + X3*W31] + B1­)
+</code></pre>
+<h3 id="apllication-of-neutral-network">Apllication of Neutral Network</h3>
+<pre><code>   The neural network in data mining performs the task such as:
+</code></pre>
+<ul>
+<li>Classification</li>
+<li>Clustering or categorization</li>
+<li>Prediction</li>
+<li>Function approximation</li>
+<li>Optimization</li>
+<li>Retrieval by content or control</li>
+</ul>
+<h3 id="types-of-neutral-network">Types of Neutral Network</h3>
+<pre><code> The are several types of the neural networks depending on their behaviour they are:
+</code></pre>
+<ul>
+<li>Recurrent Neural Network</li>
+<li>Convolution Neural Network</li>
+<li>Radial Basis Function Neural Network</li>
+<li>Feed Forward Neural Network</li>
+<li>Modular Neural Network</li>
+</ul>
+<h3 id="recurrent-neural-network-rnn">Recurrent Neural Network (RNN):</h3>
+<pre><code>   The recurrent neural network is adapted for the data that has sequencing. The data with sequencing may be such that the one data point be depending on the previous data point. In such cases, the neural network must be modified to inntegrate the dependencies between the data points. RNN include the memory that can store the information about the previous data points that helps in generating the next output in the sequence. 
+</code></pre>
+<h3 id="convolutional-neural-network">Convolutional Neural Network:</h3>
+<pre><code>   The convolutional neural network is used to recognise images and is used in the process specifically designed to process data pixels. It is a deep learning algorithm that intakes an image and assigns importance to various aspects of the image so that the network is able to differentiate one image from the other.     
+</code></pre>
+<h3 id="radial-basis-function-neural-network">Radial Basis Function Neural Network:</h3>
+<pre><code>   This kind of neural network uses a radial basis function as an activation function and it is the fastest learning network. This neural network is used for function approximation, classification and time series prediction that further helps in predicting the stock price, fraud detection in financial transactions etc.
+</code></pre>
+<h3 id="feed-forward-neural-network">Feed Forward Neural Network:</h3>
+<pre><code>   In this neural network, the information is propagated in the forward direction only. However, there are no cycles or loops in the data propagation. The feed-forward network is specially used for supervised learning, pattern recognition and classification, non-linear regression, and function approximation.
+</code></pre>
+<h3 id="modular-neural-network">Modular Neural Network:</h3>
+<pre><code>   This neural network is used for solving complex AI problems. It is characterized by a series of neural networks where each neural network is independent and serves as a module in the network. Each module operates on separate input and performs a subtask from the task that the whole network is hoped to perform.
+
+   So, this is all about the neural network in data mining that has the same structure as the human brain. Similar to the human brain the neural network takes the input process and predicts the output. Thus, it is nowadays used in much artificial intelligence (AI) systems such as face recognition, music composition, real-time translation, etc.
+</code></pre>
+<h3 id="conclution">Conclution:</h3>
+<pre><code>   Just as the human brain is responsible for intelligence and its discriminating power, the neural network also mimics the human brain and learns from its experience and applies this learning for classification and prediction.
+</code></pre>
+<h3 id="references">References</h3>
+<ul>
+<li>https://binaryterms.com/neural-network-in-data-mining.html</li>
+<li>https://www.investopedia.com/terms/n/neuralnetwork.asp</li>
+<li>https://www.javatpoint.com/artificial-neural-network</li>
+</ul>
+
+</body>
+</html>
